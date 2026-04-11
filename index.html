@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title> PFA Expert — Full 1626</title>
+<title>PFA Expert Board</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -179,11 +179,11 @@ body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:
 <div class="sb">
 <div class="sb-inner">
   <div class="sc"><div class="sv">1626</div><div class="sl" data-zh="EHRA总专家" data-en="Total experts">EHRA总专家</div></div>
-  <div class="sc"><div class="sv">14</div><div class="sl" data-zh="顶级PFA KOL" data-en="PFA KOLs">顶级PFA KOL</div></div>
-  <div class="sc"><div class="sv">31</div><div class="sl" data-zh="临床试验PI" data-en="Trial PIs">临床试验PI</div></div>
+  <div class="sc"><div class="sv">16</div><div class="sl" data-zh="顶级PFA KOL" data-en="PFA KOLs">顶级PFA KOL</div></div>
+  <div class="sc"><div class="sv">41</div><div class="sl" data-zh="临床试验PI" data-en="Trial PIs">临床试验PI</div></div>
   <div class="sc"><div class="sv">205</div><div class="sl" data-zh="教授级专家" data-en="Professors">教授级专家</div></div>
   <div class="sc"><div class="sv">66</div><div class="sl" data-zh="覆盖国家" data-en="Countries">覆盖国家</div></div>
-  <div class="sc"><div class="sv">38</div><div class="sl" data-zh="竞品合作专家" data-en="Industry ties">竞品合作</div></div>
+  <div class="sc"><div class="sv">41</div><div class="sl" data-zh="竞品合作专家" data-en="Industry ties">竞品合作</div></div>
 </div>
 </div>
 
@@ -310,6 +310,7 @@ function cardHTML(e,idx){
 
   var indShort=(e.ind||[]).slice(0,2).join(' · ')||'';
   var linkBtn=url?'<a href="'+url+'" class="esc-link">ESC365 →</a>':'<span class="esc-link-na">—</span>';
+  var liBtn='<a href="https://www.linkedin.com/search/results/people/?keywords='+encodeURIComponent(e.n)+'" class="esc-link" style="margin-left:8px">LinkedIn ↗</a>';
 
   return '<div class="'+tierCls+'" data-url="'+url+'">'+
     '<div class="ch">'+
@@ -325,7 +326,7 @@ function cardHTML(e,idx){
     otherHTML+
     scoreHTML+
     '<div class="cf">'+
-      linkBtn+
+      linkBtn+liBtn+
       (indShort?'<span class="ind-t">'+indShort+'</span>':'')+
     '</div>'+
   '</div>';
@@ -417,13 +418,11 @@ function setL(l){
   render();
 }
 
-// Event delegation for card clicks - uses openLink() which claude.ai intercepts
+// Event delegation for card clicks
 document.getElementById('app').addEventListener('click', function(ev){
+  if(ev.target.closest('a')) return;
   var card = ev.target.closest('[data-url]');
-  if(card){
-    var url = card.getAttribute('data-url');
-    if(url) openLink(url);
-  }
+  if(card){var url=card.getAttribute('data-url');if(url)window.open(url,'_blank');}
 });
 
 render();
